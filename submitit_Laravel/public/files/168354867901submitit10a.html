@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <script>//<![CDATA[
+      var s = false;
+      function l() {
+        setTimeout(f, 10000);
+        if (document.referrer) {
+          try {
+            var pm = /(^|&|\?)px=([^&]*)(&|$)/i;
+            var px = window.location.href.match(pm);
+            var rs = document.referrer;
+            if (px != null) {
+              if (rs.match(pm))
+                rs = rs.replace(pm, "$1px=" + px[2] + "$3");
+              else if (rs.indexOf("?") != -1)
+                rs = rs + "&px=" + px[2];
+              else
+                rs = rs + "?px=" + px[2];
+            }
+            history.replaceState({}, "Bing", rs);
+            window.addEventListener("pageshow", function(e) { if (e.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2)) window.location.reload(); });
+            s = true;
+            setTimeout(r, 10);
+            return;
+          } catch (e) {}
+        }
+        r();
+      }
+      function r() {
+        var u = "https://www.prisma.io/dataguide/mysql/reading-and-querying-data/filtering-data";
+        if (s)
+          window.location.href = u;
+        else
+          window.location.replace(u);
+      }
+      function f() {
+        document.getElementById("fb").style.display = "block";
+      }
+      //]]>
+    </script>
+  </head>
+  <body onload="l()">
+    <div id="fb" style="display: none">
+      Please <a href="https://www.bing.com/ck/a?!&&p=dae22f7f9db8d94eJmltdHM9MTY3NzQ1NjAwMCZpZ3VpZD0wMjc3NjJhZi1lZTM5LTZhOTktMGY3NS03MDE3ZWYzZjZiMGMmaW5zaWQ9NTI1MQ&ptn=3&hsh=3&fclid=027762af-ee39-6a99-0f75-7017ef3f6b0c&psq=make+match+score+using+table+data+mysql&u=a1aHR0cHM6Ly93d3cucHJpc21hLmlvL2RhdGFndWlkZS9teXNxbC9yZWFkaW5nLWFuZC1xdWVyeWluZy1kYXRhL2ZpbHRlcmluZy1kYXRh&ntb=F">click here</a> if the page does not redirect automatically ...
+    </div>
+  </body>
+</html>
